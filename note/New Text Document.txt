@@ -1,0 +1,1 @@
+abstrakcia klase table kurti, kurioj metodai stiliu, da kazka padaro; joje abstraktus metodas - addcolum/row nes neaisku kiek.

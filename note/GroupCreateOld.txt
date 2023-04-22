@@ -1,0 +1,62 @@
+void groupCreation(){
+
+        if (GROUPCAP <= tableList.size()+1){
+            Label label = new Label("exceeded capacity");
+            groupBox.getChildren().add(label);
+            return;
+        }
+
+        TableView<String> table = new TableView<>();
+        TableColumn column = new TableColumn<>("Grupė " + (tableList.size()+1));
+
+        table.getColumns().add(column);
+        table.setEditable(true);
+
+        tableList.add(table);
+
+        Label label = new Label("Grupė " + tableList.size());
+        Button nariai = new Button("Nariai");
+        Button lankomumas = new Button("Lankomumas");
+        Button del = new Button("del");
+        del.setStyle("-fx-text-fill: #b70000; ");
+
+        nariai.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                Stage stage = new Stage();
+                Pane pane = new Pane();
+                Scene scene = new Scene(pane);
+                pane.getChildren().add(table);
+
+                stage.setScene(scene);
+                stage.show();
+
+                del.setId(Integer.toString(tableList.size())); //kazkaip padaryt kad mygtukai vienas nuo kit skirtusi
+                // gal naujas mygtuku instancija det i masyva??
+            }
+        });
+        lankomumas.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                //TODO
+            }
+        });
+        del.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                int index = Integer.parseInt(del.getId());
+                tableList.remove(index-1);
+                groupBox.getChildren().remove(index+1);
+            }
+        });
+
+        HBox box = new HBox();
+        box.setSpacing(10);
+        box.getChildren().addAll(label, nariai, lankomumas, del);
+        groupBox.getChildren().add(box);
+
+        groupBox.getScene().getWindow().setHeight(
+                groupBox.getHeight() + 200
+        );
+
+    }
